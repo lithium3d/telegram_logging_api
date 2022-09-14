@@ -16,17 +16,20 @@ class ReportToTelegram extends Notification
     private string $url;
     private string $appName;
     private string $message;
+    private ?string $userIp;
     private string $ip;
 
     public function __construct(
         string $url,
         string $appName,
         string $message,
-        string $ip
+        string $ip,
+        ?string $userIp = null
     ) {
         $this->url = $url;
         $this->appName = $appName;
         $this->message = $message;
+        $this->userIp = $userIp;
         $this->ip = $ip;
     }
 
@@ -43,7 +46,7 @@ class ReportToTelegram extends Notification
         try {
             $location = json_decode(
                 (new Client())
-                    ->get("$ipDataUrl$this->ip?api-key=$ipDataKey")
+                    ->get("$ipDataUrl$this->userIp?api-key=$ipDataKey")
                     ->getBody()
                     ->getContents(),
                 true
@@ -57,10 +60,11 @@ class ReportToTelegram extends Notification
         $country = $location['country_name'] ?? null;
         $continent = $location['continent_name'] ?? null;
 
+
         return TelegramMessage::create()
             ->to($notifiable)
             ->content(
-                "$this->message\nIp addres: $this->ip\nCity: $city\nRegion: $region\nCountry: $country\nContinent: $continent"
+                "$this->message\nIp addres: $this->ip\nUser ip adress: $this->userIp\nCity: $city\nRegion: $region\nCountry: $country\nContinent: $continent"
             )
             ->options(['parse_mode' => ''])
             ->button($this->appName, $this->url);

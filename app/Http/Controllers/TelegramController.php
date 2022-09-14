@@ -34,7 +34,8 @@ class TelegramController extends Controller
             'url' => 'required|url',
             'app_name' => 'required|string',
             'message' => 'required|string',
-            'app_key' => 'required|string'
+            'app_key' => 'required|string',
+            'user_ip' => 'nullable'
         ]);
 
         $notifiableApp = $this->notifiableAppRepository->findByAppKey($this->request->input('app_key'));
@@ -58,6 +59,7 @@ class TelegramController extends Controller
                 $url,
                 $this->request->input('app_name'),
                 $this->request->input('message'),
+                $this->request->input('user_ip'),
                 $this->request->ip()
             ));
         }
