@@ -53,6 +53,18 @@ class ReportToTelegram extends Notification
             );
         } catch (GuzzleException $e) {
             Log::error($e->getMessage());
+
+            try {
+                $location = json_decode(
+                    (new Client())
+                        ->get("$ipDataUrl$this->ip?api-key=$ipDataKey")
+                        ->getBody()
+                        ->getContents(),
+                    true
+                );
+            } catch (GuzzleException $e) {
+                Log::error('Server ip error:  ' . $e->getMessage());
+            }
         }
 
         $city = $location['city'] ?? null;
