@@ -59,8 +59,8 @@ class TelegramController extends Controller
                 $url,
                 $this->request->input('app_name'),
                 $this->request->input('message'),
-                $this->request->input('user_ip'),
-                $this->request->ip()
+                $this->request->ip(),
+                $this->request->input('user_ip')
             ));
         }
 
