@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('domain_ping', function (Blueprint $table) {
             $table->id();
-            $table->id('domain_id');
+            $table->unsignedBigInteger('domain_id');
             $table->string('state');
             $table->text('content')->nullable();
             $table->timestamps();
