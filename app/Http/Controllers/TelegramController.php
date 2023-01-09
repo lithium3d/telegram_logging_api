@@ -8,7 +8,6 @@ use App\Repositories\LoggingRepository;
 use App\Repositories\NotifiableAppRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use Symfony\Component\HttpFoundation\Response;
 

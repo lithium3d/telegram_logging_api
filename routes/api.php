@@ -21,4 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('telegram', [TelegramController::class, 'postToTelegram']);
-Route::post('add-domain', [DomainController::class, 'addDomain'])->middleware('auth:api');
+Route::post('add-report-domain', [DomainController::class, 'addReportDomain'])->middleware('auth:api');
+
+Route::post('add-ping-domain', [DomainController::class, 'addPingDomain'])->middleware('auth:api');
